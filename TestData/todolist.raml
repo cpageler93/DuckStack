@@ -1,0 +1,28 @@
+#%RAML 1.0
+title: ToDo List
+documentation:
+ - title: Home
+   content: |
+     ToDo List API
+mediaType: application/json
+types:
+  TodoItem:
+    properties:
+      id:
+        (primaryKey): 
+        (autoUUID): 
+        required: true
+        type: string
+/todoItems:
+  get:
+    responses:
+      200:
+        body: TodoItem[]
+  post:
+    body: TodoItem
+    responses:
+      201:
+        body: TodoItem
+  delete:
+    responses:
+      204:
