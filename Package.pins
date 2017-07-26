@@ -23,7 +23,7 @@
       "package": "RAML",
       "reason": null,
       "repositoryURL": "https://github.com/cpageler93/RAML-Swift",
-      "version": "0.6.2"
+      "version": "0.6.4"
     },
     {
       "package": "Spectre",

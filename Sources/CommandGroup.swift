@@ -10,21 +10,26 @@ import RAML
 public struct CommandGroup {
     public class Generate { }
     
-    public static func ramlFromArg(argMainRamlFile: String, applyDefaults: Bool = true) -> RAML? {
+    public static func ramlFromArg(argMainRamlFile: String, applyDefaults: Bool = true) throws -> RAML? {
         guard let absolutePath = FileFinder.absoluteFilePath(fromArgument: argMainRamlFile) else {
-            print("Invalid Path \(argMainRamlFile)")
-            return nil
+            throw DuckStackError.invalidFile(atPath: argMainRamlFile)
         }
         
-        guard let raml = try? RAML(file: absolutePath.string) else {
-            print("Failed parsing RAML File at path \(absolutePath)")
-            return nil
-        }
-        
-        if applyDefaults {
-            return raml.applyDefaults()
-        } else {
-            return raml
+        do {
+            let raml = try RAML(file: absolutePath.string)
+            
+            if applyDefaults {
+                return raml.applyDefaults()
+            } else {
+                return raml
+            }
+        } catch {
+            switch error {
+            case let ramlError as RAMLError:
+                throw DuckStackError.ramlError(error: ramlError)
+            default:
+                throw error
+            }
         }
     }
 }

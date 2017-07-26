@@ -5,6 +5,15 @@ documentation:
    content: |
      ToDo List API
 mediaType: application/json
+annotationTypes:
+  primaryKey:
+    displayName: Primary Key
+    description: This annotation type can be applied to properties
+    type: nil
+  autoUUID:
+    displayName: Auto UUID
+    description: This annotation type can be applied to properties
+    type: nil
 types:
   TodoItem:
     properties:
@@ -30,6 +39,10 @@ types:
         body: TodoItem
   /{id}:
     displayName: Single ToDo List Item
+    uriParameters:
+     id:
+       description: The id of the TodoItem
+       type: string
     get:
       responses:
         200:

@@ -32,4 +32,11 @@ public extension DataType {
         }
     }
     
+    public func quackReturnValue() -> String {
+        switch self {
+        case .any:  return "QuackVoid"
+        default:    return "QuackResult<\(swiftType())>"
+        }
+    }
+    
 }

@@ -28,7 +28,7 @@ public class APIGenerator {
         settings.general.projectName = raml.title
         settings.general.author      = author
         TypeGenerator(types: raml.types).generateFor(settings: &settings)
-        ResourceGenerator(raml: raml).generateFor(settings: &settings)
+        try ResourceGenerator(raml: raml).generateFor(settings: &settings)
         
         // prepare output
         let generateSettings = GenerateSettings(outputDirectory: Path(outputDirectory))

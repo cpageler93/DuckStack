@@ -6,7 +6,7 @@
 //  ToDoListClient.swift
 //  ToDo List
 //
-//  Created by Christoph Pageler on 26. Jul 2017, 13:30:35
+//  Created by Christoph Pageler on 26. Jul 2017, 16:08:53
 //
 //
 
@@ -18,7 +18,7 @@ import Quack
 public class ToDoListClient: QuackClient {
 
 
-   public func postTodoItem() -> QuackResult<TodoItem> {
+   public func postTodoItem(body: TodoItem) -> QuackResult<TodoItem> {
 
        // code lines for request
 
@@ -32,19 +32,19 @@ public class ToDoListClient: QuackClient {
 
    }
 
-   public func deleteTodoItem{id}() -> QuackVoid {
+   public func deleteTodoItemWithId(id: String) -> QuackVoid {
 
        // code lines for request
 
    }
 
-   public func patchTodoItem{id}() -> QuackResult<TodoItem> {
+   public func patchTodoItemWithId(id: String, body: TodoItem) -> QuackResult<TodoItem> {
 
        // code lines for request
 
    }
 
-   public func getTodoItem{id}() -> QuackResult<TodoItem> {
+   public func getTodoItemWithId(id: String) -> QuackResult<TodoItem> {
 
        // code lines for request
 

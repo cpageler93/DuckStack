@@ -32,21 +32,52 @@ public class TypeGenerator {
             guard let type = property.type else { continue }
             let optional = !(property.required ?? true)
             
-            let newAttribute = Settings.Class.Attribute(ref: .let,
+            let ref = property.hasAnnotationWith(name: "primaryKey") ? Settings.ClassRef.let : Settings.ClassRef.var
+            
+            let newAttribute = Settings.Class.Attribute(ref: ref,
                                                         name: property.name,
                                                         type: type.swiftType(),
                                                         optional: optional)
             attributes.append(newAttribute)
         }
         
-        let newClass = Settings.Class(name: type.name,
-                                      attributes: attributes,
-                                      functions: [])
-        newClass.imports = [
-            "Foundation"
+        let functions = [
+            initWithJsonMethodFor(type: type)
         ]
         
+        let newClass = Settings.Class(name: type.name,
+                                      attributes: attributes,
+                                      functions: functions)
+        newClass.imports = [
+            "Foundation",
+            "Quack",
+            "SwiftyJSON"
+        ]
+
+        
         return newClass
+    }
+    
+    private func initWithJsonMethodFor(type: Type) -> Settings.Class.Function {
+        var bodyLines: [String] = []
+        
+        for property in type.properties ?? [] {
+            if property.required ?? true {
+                bodyLines.append(contentsOf: [
+                    "guard let \(property.name) = json[\"\(property.name)\"].string else { return nil }",
+                    "self.\(property.name) = property.name"
+                ])
+            } else {
+                bodyLines.append(contentsOf: [
+                    "self.\(property.name) = json[\"\(property.name)\"].string"
+                ])
+            }
+        }
+        
+        let newMethod = Settings.Class.Function(name: "init?",
+                                                parameters: [Settings.Class.FunctionParameter(name: "json", type: "JSON")],
+                                                bodyLines: bodyLines)
+        return newMethod
     }
     
 }
