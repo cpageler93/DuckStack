@@ -5,8 +5,16 @@ import PathKit
 let main = command {
     Group {
         $0.group("generate", closure: {
-            $0.command("api") { (argMainRamlFile: String) in
-                CommandGroup.Generate.api(argMainRamlFile: argMainRamlFile)
+            $0.command(
+                "api",
+                Option("raml", "api.raml"),
+                Option("output", "./output"),
+                Option("author", "")
+            ) { argMainRamlFile, argOutputDirectory, author in
+                let args = CommandGroup.Generate.APIArgs(mainRAMLFile: argMainRamlFile,
+                                                         outputDirectory: argOutputDirectory,
+                                                         author: author.characters.count > 0 ? author : nil)
+                CommandGroup.Generate.api(args)
             }
         })
     }.run()

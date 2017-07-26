@@ -6,27 +6,24 @@
 //
 
 import Foundation
-import RAML
 
-public extension CommandGroup {
+public extension CommandGroup.Generate {
     
-    public class Generate {
-        
-        public static func api(argMainRamlFile: String) {
-            guard let absolutePath = FileFinder.absoluteFilePath(fromArgument: argMainRamlFile) else {
-                return
-            }
-            
-            do {
-                let raml = try RAML(file: absolutePath.string)
-                print("raml \(raml.title)")
-            } catch {
-                print("Failed parsing RAML File at path \(absolutePath)")
-                exit(1)
-            }
-            
+    public struct APIArgs {
+        let mainRAMLFile: String
+        let outputDirectory: String
+        let author: String?
+    }
+    
+    public static func api(_ args: APIArgs) {
+        guard let raml = CommandGroup.ramlFromArg(argMainRamlFile: args.mainRAMLFile) else { return }
+        let apiGenerator = APIGenerator(raml: raml, outputDirectory: args.outputDirectory, author: args.author)
+        do {
+            try apiGenerator.generate()
+        } catch {
+            print("Failed Generating")
+            return
         }
-        
     }
     
 }
