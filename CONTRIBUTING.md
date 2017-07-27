@@ -1,4 +1,4 @@
-# Contributing to _ConsulSwift_
+# Contributing to _DuckStack_
 
 Since this is one of my first open source projects and its very young at this moment,
 I just don't know how to handle contributions from you guys.
