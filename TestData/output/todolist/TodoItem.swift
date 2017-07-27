@@ -6,7 +6,7 @@
 //  TodoItem.swift
 //  ToDo List
 //
-//  Created by Christoph Pageler on 26. Jul 2017, 16:08:53
+//  Created by Christoph Pageler on 27. Jul 2017, 20:02:08
 //
 //
 
@@ -18,24 +18,30 @@ import SwiftyJSON
 
 public class TodoItem {
 
-   public var updatedAt: Date
-   public var createdAt: Date
-   public var doneAt: Date?
-   public var title: String
-   public let id: String
+    public var doneAt: Date?
+    public var createdAt: Date?
+    public var title: String
+    public var updatedAt: Date?
+    public let id: String?
 
-   public func init?(json: JSON)  {
+    required public func init?(json: JSON)  {
 
-       guard let updatedAt = json["updatedAt"].string else { return nil }
-       self.updatedAt = property.name
-       guard let createdAt = json["createdAt"].string else { return nil }
-       self.createdAt = property.name
-       self.doneAt = json["doneAt"].string
-       guard let title = json["title"].string else { return nil }
-       self.title = property.name
-       guard let id = json["id"].string else { return nil }
-       self.id = property.name
+        // init doneAt
+        self.doneAt = json["doneAt"].string
 
-   }
+        // init createdAt
+        self.createdAt = json["createdAt"].string
+
+        // init title
+        guard let title = json["title"].string else { return nil }
+        self.title = property.name
+
+        // init updatedAt
+        self.updatedAt = json["updatedAt"].string
+
+        // init id
+        self.id = json["id"].string
+
+    }
 
 }

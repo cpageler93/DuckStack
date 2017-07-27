@@ -19,8 +19,31 @@ public class ResourceGenerator {
     
     public func generateFor(settings: inout Settings) throws {
         var functions: [Settings.Class.Function] = []
+        var attributes: [Settings.Class.Attribute] = []
         
-        // enumerate resources for generation
+        if let version = raml.version {
+            let versionAttribute = Settings.Class.Attribute(ref: .let, name: "version", type: "String", optional: false)
+            versionAttribute.defaultValue = "\"\(version)\""
+            attributes.append(versionAttribute)
+        }
+        
+        functions.append(contentsOf: generateClientInitFunctions())
+        functions.append(contentsOf: try generateFunctionsForResources())
+        
+        
+        let resourceClass = Settings.Class(name: raml.swiftResourceClassName(),
+                                           attributes: attributes,
+                                           functions: functions)
+        resourceClass.superclass = "QuackClient"
+        resourceClass.imports = [
+            "Foundation",
+            "Quack"
+        ]
+        settings.classes.append(resourceClass)
+    }
+    
+    private func generateFunctionsForResources() throws -> [Settings.Class.Function] {
+        var functions: [Settings.Class.Function] = []
         var errorInResourceEnumeration: Error? = nil
         raml.enumerateResource { resource, _, stop in
             do {
@@ -34,29 +57,19 @@ public class ResourceGenerator {
         if let errorInResourceEnumeration = errorInResourceEnumeration {
             throw errorInResourceEnumeration
         }
-        
-        // create single "Resource"-Class
-        let resourceClass = Settings.Class(name: raml.swiftResourceClassName(),
-                                           attributes: [],
-                                           functions:functions)
-        resourceClass.superclass = "QuackClient"
-        resourceClass.imports = [
-            "Foundation",
-            "Quack"
-        ]
-        settings.classes.append(resourceClass)
+        return functions
     }
     
     private func generateFunctionsFor(resource: Resource) throws -> [Settings.Class.Function] {
         var functions: [Settings.Class.Function] = []
         for method in resource.methods ?? [] {
-            let newFunction = try functionForMethod(method, inResource: resource)
-            functions.append(newFunction)
+            let newFunctions = try functionsForMethod(method, inResource: resource)
+            functions.append(contentsOf: newFunctions)
         }
         return functions
     }
     
-    private func functionForMethod(_ method: ResourceMethod, inResource resource: Resource) throws -> Settings.Class.Function {
+    private func functionsForMethod(_ method: ResourceMethod, inResource resource: Resource) throws -> [Settings.Class.Function] {
         guard let validResponse = method.validResponse() else {
             throw DuckStackError.noValidResponseFor(method: method)
         }
@@ -64,75 +77,50 @@ public class ResourceGenerator {
             throw DuckStackError.noValidBodyTypeInResponseFor(method: method)
         }
         
-        // determine body lines
-        var bodyLines: [String] = []
-        switch validResponseType {
-        case .array(let type):
-            bodyLines = [
-                "return respondWithArray(method: .\(method.type.rawValue),",
-                "                        path: \"\(raml.absolutePathForResource(resource))\",",
-                "                        model: \(type.swiftType()).self)"
-            ]
-        default:
-            bodyLines = [
-                "// code lines for request"
-            ]
-        }
+        let syncFunction = try syncResourceFunction(method: method,
+                                                    resource: resource,
+                                                    response: validResponse,
+                                                    responseType: validResponseType)
         
-        // determine function parameters
-        var parameters: [Settings.Class.FunctionParameter] = []
+        let asyncFunction = try asyncResourceFunction(method: method,
+                                                      resource: resource,
+                                                      response: validResponse,
+                                                      responseType: validResponseType)
         
-        // uri parameter
-        for uriParameter in resource.uriParameters ?? [] {
-            guard let type = uriParameter.type else { continue }
-            let typeString = type.swiftClassName() + ((uriParameter.required ?? true) ? "" : "?")
-            let param = Settings.Class.FunctionParameter(name: uriParameter.identifier, type: typeString)
-            parameters.append(param)
-        }
-        
-        // body parameter
-        if let bodyType = method.body?.type {
-            let bodyParameter = Settings.Class.FunctionParameter(name: "body", type: bodyType.swiftType())
-            parameters.append(bodyParameter)
-        }
-        
-        let newFunction = Settings.Class.Function(name: swiftFunctionNameFor(method: method, inResource: resource),
-                                                  parameters: parameters,
-                                                  bodyLines: bodyLines)
-        newFunction.returnType = validResponseType.quackReturnValue()
-        
-        return newFunction
+        return [syncFunction, asyncFunction]
     }
     
-    private func swiftFunctionNameFor(method: ResourceMethod, inResource resource: Resource) -> String {
-        var pathComponent = raml.absolutePathForResource(resource)
-        pathComponent = pathComponent.replacingOccurrences(of: "/", with: "")
-        pathComponent = pathComponent.capitalizingFirstLetter()
+    private func generateClientInitFunctions() -> [Settings.Class.Function] {
+        guard let baseURI = raml.baseURI else { return [] }
         
-        // replace parameters in Path
-        do {
-            let parameterRegex = try NSRegularExpression(pattern: "\\{(.*)\\}")
-            var parameterMatches: [NSTextCheckingResult] = []
-            repeat {
-                parameterMatches = parameterRegex.matches(in: pathComponent, options: [], range: NSMakeRange(0, pathComponent.characters.count))
-                guard let firstMatch = parameterMatches.first else { break }
-                let bigRange = firstMatch.rangeAt(0)
-                let smallRange = firstMatch.rangeAt(1)
-                
-                let nsPathComponent = pathComponent as NSString
-                let parameterName = nsPathComponent.substring(with: smallRange).capitalizingFirstLetter()
-                pathComponent = nsPathComponent.replacingCharacters(in: bigRange, with: "With\(parameterName)")
-                
-            } while(parameterMatches.count > 0)
-            
-        } catch {
-            
+        var baseURIString = baseURI.value
+        baseURIString = baseURIString.replacingParams { paramName -> (String) in
+            return "\\(\(paramName))"
         }
         
-        var methodComponent = method.type.rawValue
-        methodComponent = methodComponent.lowercased()
+        var initLines: [String] = []
+        initLines.append(contentsOf: [
+            "super.init(url: URL(string: \"\(baseURIString)\")!)"
+        ])
         
-        return "\(methodComponent)\(pathComponent)"
+        var parameters: [Settings.Class.FunctionParameter] = []
+        
+        if let baseURIParameters = raml.baseURIParameters {
+            for baseURIParameter in baseURIParameters {
+                guard let type = baseURIParameter.type else { continue }
+                let parameter = Settings.Class.FunctionParameter(name: baseURIParameter.identifier,
+                                                                 type: type.swiftClassName())
+                parameter.optional = false
+                parameters.append(parameter)
+            }
+        }
+        
+        let initFunction = Settings.Class.Function(name: "init",
+                                                   parameters: parameters,
+                                                   bodyLines: initLines)
+        
+        return [initFunction]
     }
+    
     
 }

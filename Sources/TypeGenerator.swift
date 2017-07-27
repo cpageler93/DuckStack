@@ -30,14 +30,14 @@ public class TypeGenerator {
         var attributes: [Settings.Class.Attribute] = []
         for property in type.properties ?? [] {
             guard let type = property.type else { continue }
-            let optional = !(property.required ?? true)
             
-            let ref = property.hasAnnotationWith(name: "primaryKey") ? Settings.ClassRef.let : Settings.ClassRef.var
+            let isPrimaryKey = property.hasAnnotationWith(name: "primaryKey")
+            let ref = isPrimaryKey ? Settings.ClassRef.let : Settings.ClassRef.var
             
             let newAttribute = Settings.Class.Attribute(ref: ref,
                                                         name: property.name,
                                                         type: type.swiftType(),
-                                                        optional: optional)
+                                                        optional: property.swiftOptional())
             attributes.append(newAttribute)
         }
         
@@ -61,23 +61,32 @@ public class TypeGenerator {
     private func initWithJsonMethodFor(type: Type) -> Settings.Class.Function {
         var bodyLines: [String] = []
         
-        for property in type.properties ?? [] {
-            if property.required ?? true {
+        for (index, property) in (type.properties ?? []).enumerated() {
+            if index != 0 {
+                bodyLines.append(contentsOf: [
+                    ""
+                ])
+            }
+            bodyLines.append(contentsOf: [
+                "// init \(property.name)"
+            ])
+            if property.swiftOptional() {
+                bodyLines.append(contentsOf: [
+                    "self.\(property.name) = json[\"\(property.name)\"].string"
+                    ])
+            } else {
                 bodyLines.append(contentsOf: [
                     "guard let \(property.name) = json[\"\(property.name)\"].string else { return nil }",
                     "self.\(property.name) = property.name"
-                ])
-            } else {
-                bodyLines.append(contentsOf: [
-                    "self.\(property.name) = json[\"\(property.name)\"].string"
-                ])
+                    ])
             }
         }
         
-        let newMethod = Settings.Class.Function(name: "init?",
+        let initMethod = Settings.Class.Function(name: "init?",
                                                 parameters: [Settings.Class.FunctionParameter(name: "json", type: "JSON")],
                                                 bodyLines: bodyLines)
-        return newMethod
+        initMethod.accessControl = "required public"
+        return initMethod
     }
     
 }

@@ -45,4 +45,29 @@ public extension String {
         return className
     }
     
+    public func replacingParams(with block: (String) -> (String)) -> String {
+        var source = self
+        do {
+//            let parameterRegex = try NSRegularExpression(pattern: "\\\(from)(.*)\\\(to)")
+            let parameterRegex = try NSRegularExpression(pattern: "\\{([^*\\{\\}]*)\\}")
+            var parameterMatches: [NSTextCheckingResult] = []
+            repeat {
+                parameterMatches = parameterRegex.matches(in: source, options: [], range: NSMakeRange(0, source.characters.count))
+                guard let firstMatch = parameterMatches.first else { break }
+                let bigRange = firstMatch.rangeAt(0)
+                let smallRange = firstMatch.rangeAt(1)
+                
+                let nsSource = source as NSString
+                let parameterName = nsSource.substring(with: smallRange)
+                let newValue = block(parameterName)
+                source = nsSource.replacingCharacters(in: bigRange, with: newValue)
+                
+            } while(parameterMatches.count > 0)
+            
+        } catch {
+            
+        }
+        return source
+    }
+    
 }
