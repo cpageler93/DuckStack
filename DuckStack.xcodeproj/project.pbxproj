@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		594EF94E1F2E1A6A00D278F2 /* ServerGeneratorRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594EF94D1F2E1A6A00D278F2 /* ServerGeneratorRoutes.swift */; };
+		594EF9501F2E1AE400D278F2 /* ServerGeneratorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594EF94F1F2E1AE400D278F2 /* ServerGeneratorModels.swift */; };
 		OBJ_170 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_145 /* Case.swift */; };
 		OBJ_171 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_146 /* Context.swift */; };
 		OBJ_172 /* Expectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_147 /* Expectation.swift */; };
@@ -399,6 +401,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		594EF94D1F2E1A6A00D278F2 /* ServerGeneratorRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerGeneratorRoutes.swift; sourceTree = "<group>"; };
+		594EF94F1F2E1AE400D278F2 /* ServerGeneratorModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerGeneratorModels.swift; sourceTree = "<group>"; };
 		OBJ_10 /* DataTypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeExtensions.swift; sourceTree = "<group>"; };
 		OBJ_100 /* LclJSONSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LclJSONSerialization.swift; sourceTree = "<group>"; };
 		OBJ_101 /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -839,7 +843,7 @@
 			path = ".build/checkouts/RAML-Swift--6410183450303932041/Sources";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -849,7 +853,6 @@
 				OBJ_32 /* Dependencies */,
 				OBJ_153 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -870,6 +873,8 @@
 				OBJ_20 /* ResourceGeneratorGenericFunction.swift */,
 				OBJ_21 /* ResourceGeneratorSyncFunction.swift */,
 				OBJ_22 /* ServerGenerator.swift */,
+				594EF94D1F2E1A6A00D278F2 /* ServerGeneratorRoutes.swift */,
+				594EF94F1F2E1AE400D278F2 /* ServerGeneratorModels.swift */,
 				OBJ_23 /* SettingsExtensions.swift */,
 				OBJ_24 /* StringExtensions.swift */,
 				OBJ_25 /* TypeExtensions.swift */,
@@ -1164,7 +1169,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_153 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1372,7 +1377,9 @@
 				OBJ_367 /* MethodResponseExtensions.swift in Sources */,
 				OBJ_368 /* PropertyExtensions.swift in Sources */,
 				OBJ_369 /* RAMLExtensions.swift in Sources */,
+				594EF9501F2E1AE400D278F2 /* ServerGeneratorModels.swift in Sources */,
 				OBJ_370 /* ResourceGenerator.swift in Sources */,
+				594EF94E1F2E1A6A00D278F2 /* ServerGeneratorRoutes.swift in Sources */,
 				OBJ_371 /* ResourceGeneratorAsyncFunction.swift in Sources */,
 				OBJ_372 /* ResourceGeneratorGenericFunction.swift in Sources */,
 				OBJ_373 /* ResourceGeneratorSyncFunction.swift in Sources */,
