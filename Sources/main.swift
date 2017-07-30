@@ -10,10 +10,11 @@ let main = command {
                 Option("raml", "api.raml"),
                 Option("output", "./output"),
                 Option("author", "")
-            ) { argMainRamlFile, argOutputDirectory, author in
+            ) { (argMainRamlFile, argOutputDirectory, author) in
                 let args = CommandGroup.Generate.APIArgs(mainRAMLFile: argMainRamlFile,
                                                          outputDirectory: argOutputDirectory,
-                                                         author: author.characters.count > 0 ? author : nil)
+                                                         author: author.characters.count > 0 ? author : nil,
+                                                         clean: true)
                 CommandGroup.Generate.api(args)
             }
         })

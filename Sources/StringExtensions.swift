@@ -70,4 +70,22 @@ public extension String {
         return source
     }
     
+    public func withRemovedPrefix(_ prefix: String) -> String {
+        let source = self
+        if source.hasPrefix(prefix) {
+            return String(source.dropFirst(prefix.characters.count))
+        } else {
+            return source
+        }
+    }
+    
+    public func withRemovedSuffix(_ suffix: String) -> String {
+        let source = self
+        if source.hasSuffix(suffix) {
+            return String(source.dropLast(suffix.characters.count))
+        } else {
+            return source
+        }
+    }
+    
 }

@@ -6,7 +6,7 @@
 //  TodoItem.swift
 //  ToDo List
 //
-//  Created by Christoph Pageler on 27. Jul 2017, 20:02:08
+//  Created by Christoph Pageler on 30. Jul 2017, 15:23:28
 //
 //
 
@@ -24,7 +24,7 @@ public class TodoItem {
     public var updatedAt: Date?
     public let id: String?
 
-    required public func init?(json: JSON)  {
+    required public init?(json: JSON)  {
 
         // init doneAt
         self.doneAt = json["doneAt"].string

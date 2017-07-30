@@ -18,7 +18,7 @@ public extension ResourceGenerator {
         
         let bodyLines = swiftFunctionBodyLinesForMethod(method, inResource: resource, forResponseType: responseType)
         var parameters = raml.swiftFunctionParametersFor(method: method, inResource: resource)
-        parameters.append(Settings.Class.FunctionParameter(name: "completion", type: "@escaping (\(responseType.quackReturnValue()) -> ()"))
+        parameters.append(Settings.Class.FunctionParameter(name: "completion", type: "@escaping (\(responseType.quackReturnValue()) -> ())"))
         let functionName = raml.swiftFunctionNameFor(method: method, inResource: resource)
         
         let asyncFunction = Settings.Class.Function(name: functionName,

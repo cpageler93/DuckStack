@@ -5,7 +5,7 @@
       "package": "ChickGen",
       "reason": null,
       "repositoryURL": "https://github.com/cpageler93/ChickGen",
-      "version": "0.2.2"
+      "version": "0.3.1"
     },
     {
       "package": "Commander",

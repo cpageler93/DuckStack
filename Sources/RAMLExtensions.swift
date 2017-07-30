@@ -11,8 +11,12 @@ import ChickGen
 
 public extension RAML {
     
-    public func swiftResourceClassName() -> String {
+    public func swiftResourceClientClassName() -> String {
         return "\(title.swiftClassName())Client"
+    }
+    
+    public func swiftResourceServerClassName() -> String {
+        return "\(title.swiftClassName())Server"
     }
     
     public func swiftFunctionNameFor(method: ResourceMethod, inResource resource: Resource) -> String {

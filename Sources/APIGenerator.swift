@@ -22,20 +22,72 @@ public class APIGenerator {
         self.author = author
     }
     
+    private func clientPath() -> Path {
+        return Path(outputDirectory) + Path("client")
+    }
+    
+    private func serverPath() -> Path {
+        return Path(outputDirectory) + Path("server")
+    }
+    
+    public func clean() throws {
+        let cp = clientPath()
+        if cp.exists && cp.isDeletable {
+            try cp.delete()
+        }
+        
+        let sp = serverPath()
+        if sp.exists && sp.isDeletable {
+            try sp.delete()
+        }
+    }
+    
     public func generate() throws {
-        // prepare settings
-        var settings = Settings()
+        let path = Path(outputDirectory)
+        if !path.exists {
+            throw DuckStackError.invalidFile(atPath: path.string)
+        }
+        
+        let cp = clientPath()
+        if !cp.exists {
+            try cp.mkdir()
+        }
+        
+        let sp = serverPath()
+        if !sp.exists {
+            try sp.mkdir()
+        }
+        
+        try generateClient(path: cp)
+        try generateServer(path: sp)
+    }
+    
+    private func getNewSettings() -> Settings {
+        let settings = Settings()
+        
         settings.general.projectName = raml.title
         settings.general.author      = author
+        
+        return settings
+    }
+    
+    private func generateClient(path: Path) throws {
+        // prepare settings
+        var settings = getNewSettings()
         TypeGenerator(types: raml.types).generateFor(settings: &settings)
         try ResourceGenerator(raml: raml).generateFor(settings: &settings)
         
         // prepare output
-        let generateSettings = GenerateSettings(outputDirectory: Path(outputDirectory))
+        let generateSettings = GenerateSettings(outputDirectory: path)
         
         // generate files
         let generator = ChickGenGenerator(settings: settings)
         try generator.generate(generateSettings)
+    }
+    
+    private func generateServer(path: Path) throws {
+        let generator = ServerGenerator(raml: raml)
+        try generator.generate(path: path, settings: getNewSettings())
     }
     
 }

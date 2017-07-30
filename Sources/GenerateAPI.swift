@@ -13,6 +13,7 @@ public extension CommandGroup.Generate {
         let mainRAMLFile: String
         let outputDirectory: String
         let author: String?
+        let clean: Bool
     }
     
     public static func api(_ args: APIArgs) {
@@ -22,9 +23,19 @@ public extension CommandGroup.Generate {
             
             // generate api from raml
             let apiGenerator = APIGenerator(raml: raml, outputDirectory: args.outputDirectory, author: args.author)
+            
+            if args.clean {
+                try apiGenerator.clean()
+            }
+            
             try apiGenerator.generate()
         } catch {
-            print("Error: \(error.localizedDescription)")
+            switch error {
+            case let duckStackError as DuckStackError:
+                print("Error: \(duckStackError.localizedDescription)")
+            default:
+                print("Error: \(error.localizedDescription)")
+            }
             return
         }
     }

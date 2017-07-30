@@ -31,7 +31,7 @@ public class ResourceGenerator {
         functions.append(contentsOf: try generateFunctionsForResources())
         
         
-        let resourceClass = Settings.Class(name: raml.swiftResourceClassName(),
+        let resourceClass = Settings.Class(name: raml.swiftResourceClientClassName(),
                                            attributes: attributes,
                                            functions: functions)
         resourceClass.superclass = "QuackClient"

@@ -6,7 +6,7 @@
 //  ToDoListClient.swift
 //  ToDo List
 //
-//  Created by Christoph Pageler on 27. Jul 2017, 20:02:08
+//  Created by Christoph Pageler on 30. Jul 2017, 15:23:28
 //
 //
 
@@ -19,7 +19,7 @@ public class ToDoListClient: QuackClient {
 
     public let version: String = "v1"
 
-    public func init(servicename: String)  {
+    public init(servicename: String)  {
 
         super.init(url: URL(string: "https://\(servicename).api.todolist.com/\(version)")!)
 
@@ -38,7 +38,7 @@ public class ToDoListClient: QuackClient {
 
     }
 
-    public func postTodoItem(body: TodoItem, completion: @escaping (QuackResult<TodoItem> -> ()) -> QuackVoid {
+    public func postTodoItem(body: TodoItem, completion: @escaping (QuackResult<TodoItem> -> ())) -> QuackVoid {
 
         var map: [String: QuackModel] = [:]
         map["body"] = body
@@ -60,7 +60,7 @@ public class ToDoListClient: QuackClient {
 
     }
 
-    public func getTodoItem(completion: @escaping (QuackResult<[TodoItem]> -> ()) -> QuackVoid {
+    public func getTodoItem(completion: @escaping (QuackResult<[TodoItem]> -> ())) -> QuackVoid {
 
         return respondWithArrayAsync(method: .get,
                                      path: "/todoItem",
@@ -77,7 +77,7 @@ public class ToDoListClient: QuackClient {
 
     }
 
-    public func deleteTodoItemWithId(id: String, completion: @escaping (QuackVoid -> ()) -> QuackVoid {
+    public func deleteTodoItemWithId(id: String, completion: @escaping (QuackVoid -> ())) -> QuackVoid {
 
         return respondAsync(method: .delete,
                             path: "/todoItem/\(id)",
@@ -99,7 +99,7 @@ public class ToDoListClient: QuackClient {
 
     }
 
-    public func patchTodoItemWithId(id: String, body: TodoItem, completion: @escaping (QuackResult<TodoItem> -> ()) -> QuackVoid {
+    public func patchTodoItemWithId(id: String, body: TodoItem, completion: @escaping (QuackResult<TodoItem> -> ())) -> QuackVoid {
 
         var map: [String: QuackModel] = [:]
         map["body"] = body
@@ -121,7 +121,7 @@ public class ToDoListClient: QuackClient {
 
     }
 
-    public func getTodoItemWithId(id: String, completion: @escaping (QuackResult<TodoItem> -> ()) -> QuackVoid {
+    public func getTodoItemWithId(id: String, completion: @escaping (QuackResult<TodoItem> -> ())) -> QuackVoid {
 
         return respondAsync(method: .get,
                             path: "/todoItem/\(id)",
