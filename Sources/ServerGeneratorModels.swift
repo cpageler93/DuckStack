@@ -17,6 +17,9 @@ public extension ServerGenerator {
         for type in raml.types ?? [] {
             let newType = try generateVaporModelFor(type: type)
             settings.classes.append(newType)
+            
+            let newExtensions = try generateVaporModelExtensionsFor(type: type)
+            settings.extensions.append(contentsOf: newExtensions)
         }
         
         let generateSettings = GenerateSettings(outputDirectory: path)
@@ -29,7 +32,7 @@ public extension ServerGenerator {
         let functions = try vaporModelFunctionsFor(type: type)
         
         
-        let modelClass = Settings.Class(name: "Duck_\(type.name)", attributes: attributes, functions: functions)
+        let modelClass = Settings.Class(name: type.name, attributes: attributes, functions: functions)
         modelClass.superclass = "Model"
         modelClass.accessControl = "final"
         modelClass.imports = [

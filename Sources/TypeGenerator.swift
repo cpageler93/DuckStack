@@ -31,8 +31,7 @@ public class TypeGenerator {
         for property in type.properties ?? [] {
             guard let type = property.type else { continue }
             
-            let isPrimaryKey = property.hasAnnotationWith(name: "primaryKey")
-            let ref = isPrimaryKey ? Settings.ClassRef.let : Settings.ClassRef.var
+            let ref = property.isPrimaryKey() ? Settings.ClassRef.let : Settings.ClassRef.var
             
             let newAttribute = Settings.Class.Attribute(ref: ref,
                                                         name: property.name,

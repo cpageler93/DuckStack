@@ -11,7 +11,11 @@ import RAML
 public extension Property {
     
     public func swiftOptional() -> Bool {
-        return !(required ?? true) || hasAnnotationWith(name: "primaryKey")
+        return !(required ?? true) || isPrimaryKey()
+    }
+    
+    public func isPrimaryKey() -> Bool {
+        return hasAnnotationWith(name: "primaryKey")
     }
     
 }

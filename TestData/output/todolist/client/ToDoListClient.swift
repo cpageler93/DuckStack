@@ -6,14 +6,13 @@
 //  ToDoListClient.swift
 //  ToDo List
 //
-//  Created by Christoph Pageler on 30. Jul 2017, 16:39:07
+//  Created by Christoph Pageler on 30. Jul 2017, 20:28:52
 //
 //
 
 
 import Foundation
 import Quack
-
 
 public class ToDoListClient: QuackClient {
 
