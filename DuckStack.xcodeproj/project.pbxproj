@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		592D95091F2FA09C00B69FCA /* ServerGeneratorConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592D95081F2FA09C00B69FCA /* ServerGeneratorConfig.swift */; };
 		OBJ_173 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_148 /* Case.swift */; };
 		OBJ_174 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_149 /* Context.swift */; };
 		OBJ_175 /* Expectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_150 /* Expectation.swift */; };
@@ -402,6 +403,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		592D95081F2FA09C00B69FCA /* ServerGeneratorConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerGeneratorConfig.swift; sourceTree = "<group>"; };
 		OBJ_10 /* DataTypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeExtensions.swift; sourceTree = "<group>"; };
 		OBJ_100 /* SettingsGeneral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGeneral.swift; sourceTree = "<group>"; };
 		OBJ_101 /* SettingsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsParser.swift; sourceTree = "<group>"; };
@@ -855,7 +857,7 @@
 			path = ".build/checkouts/RAML-Swift--6410183450303932041/Sources";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -865,7 +867,6 @@
 				OBJ_35 /* Dependencies */,
 				OBJ_156 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -886,6 +887,7 @@
 				OBJ_20 /* ResourceGeneratorGenericFunction.swift */,
 				OBJ_21 /* ResourceGeneratorSyncFunction.swift */,
 				OBJ_22 /* ServerGenerator.swift */,
+				592D95081F2FA09C00B69FCA /* ServerGeneratorConfig.swift */,
 				OBJ_23 /* ServerGeneratorModelExtensions.swift */,
 				OBJ_24 /* ServerGeneratorModels.swift */,
 				OBJ_25 /* ServerGeneratorRoutes.swift */,
@@ -1173,7 +1175,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_156 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1373,6 +1375,7 @@
 			files = (
 				OBJ_363 /* APIGenerator.swift in Sources */,
 				OBJ_364 /* CommandGroup.swift in Sources */,
+				592D95091F2FA09C00B69FCA /* ServerGeneratorConfig.swift in Sources */,
 				OBJ_365 /* DataTypeExtensions.swift in Sources */,
 				OBJ_366 /* DuckStackError.swift in Sources */,
 				OBJ_367 /* FileFinder.swift in Sources */,
