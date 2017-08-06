@@ -6,7 +6,7 @@
 //  ToDoListClient.swift
 //  ToDo List
 //
-//  Created by Christoph Pageler on 6. Aug 2017, 20:16:52
+//  Created by Christoph Pageler on 6. Aug 2017, 20:33:45
 //
 //
 
@@ -108,6 +108,23 @@ public class ToDoListClient: QuackClient {
                             path: "/todoItems/\(id)",
                             params: preparedParams,
                             model: TodoItem.self,
+                            completion: completion)
+
+    }
+
+    public func deleteTodoItemsWithId(id: Int) -> QuackVoid {
+
+        return respond(method: .delete,
+                       path: "/todoItems/\(id)",
+                       model: Any.self)
+
+    }
+
+    public func deleteTodoItemsWithId(id: Int, completion: @escaping (QuackVoid -> ())) -> QuackVoid {
+
+        return respondAsync(method: .delete,
+                            path: "/todoItems/\(id)",
+                            model: Any.self,
                             completion: completion)
 
     }

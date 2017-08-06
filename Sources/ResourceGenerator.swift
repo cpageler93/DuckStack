@@ -114,6 +114,9 @@ public class ResourceGenerator {
         let patchSingleItem = singleItemResource.resourceMethodForPatchSingleItem(inRaml: raml, withType: withType)
         functions.append(contentsOf: try nonResourceFunctionsForMethod(patchSingleItem, inResource: singleItemResource))
         
+        let deleteSingleItem = singleItemResource.resourceMethodForDeleteSingleItem(inRaml: raml, withType: withType)
+        functions.append(contentsOf: try nonResourceFunctionsForMethod(deleteSingleItem, inResource: singleItemResource))
+        
         return functions
     }
     

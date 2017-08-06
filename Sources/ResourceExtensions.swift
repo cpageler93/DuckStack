@@ -46,7 +46,7 @@ public extension Resource {
         let method = ResourceMethod(type: .get)
         method.displayName = "Resource GET List"
         method.responses = [
-            resourceResponse200WithType(type: DataType.array(ofType: DataType.custom(type: type)))
+            resourceResponse(type: DataType.array(ofType: DataType.custom(type: type)))
         ]
         let methodWithDefaults = method.applyDefaults(raml: raml)
         return methodWithDefaults
@@ -59,7 +59,8 @@ public extension Resource {
         methodBody.type = DataType.custom(type: type)
         method.body = methodBody
         method.responses = [
-            resourceResponse200WithType(type: DataType.custom(type: type))
+            resourceResponse(code: 201,
+                             type: DataType.custom(type: type))
         ]
         let methodWithDefaults = method.applyDefaults(raml: raml)
         return methodWithDefaults
@@ -82,7 +83,7 @@ public extension Resource {
         let method = ResourceMethod(type: .get)
         method.displayName = "Resource GET Single Item"
         method.responses = [
-            resourceResponse200WithType(type: DataType.custom(type: type))
+            resourceResponse(type: DataType.custom(type: type))
         ]
         let methodWithDefaults = method.applyDefaults(raml: raml)
         return methodWithDefaults
@@ -95,19 +96,30 @@ public extension Resource {
         methodBody.type = DataType.custom(type: type)
         method.body = methodBody
         method.responses = [
-            resourceResponse200WithType(type: DataType.custom(type: type))
+            resourceResponse(type: DataType.custom(type: type))
         ]
         let methodWithDefaults = method.applyDefaults(raml: raml)
         return methodWithDefaults
     }
     
-    private func resourceResponse200WithType(type: DataType) -> MethodResponse {
-        let response200 = MethodResponse(code: 200)
-        let response200Body = Body()
-        response200Body.type = type
-        response200.body = response200Body
-        
-        return response200
+    public func resourceMethodForDeleteSingleItem(inRaml raml: RAML, withType type: String) -> ResourceMethod {
+        let method = ResourceMethod(type: .delete)
+        method.displayName = "Resource DELETE Single Item"
+        method.responses = [
+            resourceResponse(code: 204,
+                             type: DataType.any)
+        ]
+        let methodWithDefaults = method.applyDefaults(raml: raml)
+        return methodWithDefaults
+    }
+    
+    private func resourceResponse(code: Int = 200,
+                                  type: DataType) -> MethodResponse {
+        let response = MethodResponse(code: code)
+        let responseBody = Body()
+        responseBody.type = type
+        response.body = responseBody
+        return response
     }
 
     

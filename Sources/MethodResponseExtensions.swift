@@ -11,7 +11,7 @@ import RAML
 public extension ResourceMethod {
     
     public func validResponse() -> MethodResponse? {
-        return responseWith(code: 200) ?? responseWith(code: 201)
+        return responseWith(code: 200) ?? responseWith(code: 201) ?? responseWith(code: 204)
     }
     
 }
