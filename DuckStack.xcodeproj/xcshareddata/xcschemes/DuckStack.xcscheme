@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_168"
+               BlueprintIdentifier = "OBJ_171"
                BuildableName = "Spectre.framework"
                BlueprintName = "Spectre"
                ReferencedContainer = "container:DuckStack.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_182"
+               BlueprintIdentifier = "OBJ_185"
                BuildableName = "Commander.framework"
                BlueprintName = "Commander"
                ReferencedContainer = "container:DuckStack.xcodeproj">
@@ -42,7 +42,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_199"
+               BlueprintIdentifier = "OBJ_202"
                BuildableName = "PathKit.framework"
                BlueprintName = "PathKit"
                ReferencedContainer = "container:DuckStack.xcodeproj">
@@ -56,7 +56,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_182"
+               BlueprintIdentifier = "OBJ_185"
                BuildableName = "Commander.framework"
                BlueprintName = "Commander"
                ReferencedContainer = "container:DuckStack.xcodeproj">
@@ -70,7 +70,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_225"
+               BlueprintIdentifier = "OBJ_228"
                BuildableName = "Stencil.framework"
                BlueprintName = "Stencil"
                ReferencedContainer = "container:DuckStack.xcodeproj">
@@ -84,7 +84,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_254"
+               BlueprintIdentifier = "OBJ_257"
                BuildableName = "SwiftyJSON.framework"
                BlueprintName = "SwiftyJSON"
                ReferencedContainer = "container:DuckStack.xcodeproj">
@@ -98,7 +98,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_262"
+               BlueprintIdentifier = "OBJ_265"
                BuildableName = "ChickGen.framework"
                BlueprintName = "ChickGen"
                ReferencedContainer = "container:DuckStack.xcodeproj">
@@ -112,7 +112,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_297"
+               BlueprintIdentifier = "OBJ_300"
                BuildableName = "Yaml.framework"
                BlueprintName = "Yaml"
                ReferencedContainer = "container:DuckStack.xcodeproj">
@@ -126,7 +126,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_309"
+               BlueprintIdentifier = "OBJ_312"
                BuildableName = "RAML.framework"
                BlueprintName = "RAML"
                ReferencedContainer = "container:DuckStack.xcodeproj">
@@ -140,7 +140,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_358"
+               BlueprintIdentifier = "OBJ_361"
                BuildableName = "DuckStack"
                BlueprintName = "DuckStack"
                ReferencedContainer = "container:DuckStack.xcodeproj">
@@ -159,7 +159,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_405"
+               BlueprintIdentifier = "OBJ_411"
                BuildableName = "DuckStackTests.xctest"
                BlueprintName = "DuckStackTests"
                ReferencedContainer = "container:DuckStack.xcodeproj">
@@ -183,7 +183,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_168"
+            BlueprintIdentifier = "OBJ_171"
             BuildableName = "Spectre.framework"
             BlueprintName = "Spectre"
             ReferencedContainer = "container:DuckStack.xcodeproj">

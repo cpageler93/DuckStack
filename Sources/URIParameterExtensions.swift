@@ -11,7 +11,11 @@ import RAML
 public extension URIParameter.ParameterType {
     
     public func swiftClassName() -> String {
-        return self.rawValue.capitalizingFirstLetter()
+        switch self {
+        case .integer: return "Int"
+        case .string: return "String"
+        case .array: return "<undefined?>"
+        }
     }
     
 }

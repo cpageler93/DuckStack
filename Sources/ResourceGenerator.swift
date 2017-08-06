@@ -46,6 +46,7 @@ public class ResourceGenerator {
         var functions: [Settings.Class.Function] = []
         var errorInResourceEnumeration: Error? = nil
         raml.enumerateResource { resource, _, stop in
+            
             do {
                 let newFunctions = try self.generateFunctionsFor(resource: resource)
                 functions.append(contentsOf: newFunctions)
@@ -62,14 +63,20 @@ public class ResourceGenerator {
     
     private func generateFunctionsFor(resource: Resource) throws -> [Settings.Class.Function] {
         var functions: [Settings.Class.Function] = []
-        for method in resource.methods ?? [] {
-            let newFunctions = try functionsForMethod(method, inResource: resource)
+        
+        if let resourceOfType = resource.resourceOfType() {
+            let newFunctions = try resourceFunctionsFor(resource: resource, withType: resourceOfType)
             functions.append(contentsOf: newFunctions)
+        } else {
+            for method in resource.methods ?? [] {
+                let newFunctions = try nonResourceFunctionsForMethod(method, inResource: resource)
+                functions.append(contentsOf: newFunctions)
+            }
         }
         return functions
     }
     
-    private func functionsForMethod(_ method: ResourceMethod, inResource resource: Resource) throws -> [Settings.Class.Function] {
+    private func nonResourceFunctionsForMethod(_ method: ResourceMethod, inResource resource: Resource) throws -> [Settings.Class.Function] {
         guard let validResponse = method.validResponse() else {
             throw DuckStackError.noValidResponseFor(method: method)
         }
@@ -88,6 +95,26 @@ public class ResourceGenerator {
                                                       responseType: validResponseType)
         
         return [syncFunction, asyncFunction]
+    }
+    
+    private func resourceFunctionsFor(resource: Resource, withType: String) throws -> [Settings.Class.Function] {
+        var functions: [Settings.Class.Function] = []
+        
+        let singleItemResource = resource.addSingleItemResource()
+        
+        let getList = resource.resourceMethodForGetList(inRaml: raml, withType: withType)
+        functions.append(contentsOf: try nonResourceFunctionsForMethod(getList, inResource: resource))
+        
+        let postItem = resource.resourceMethodForPostItem(inRaml: raml, withType: withType)
+        functions.append(contentsOf: try nonResourceFunctionsForMethod(postItem, inResource: resource))
+        
+        let getSingleItem = singleItemResource.resourceMethodForGetSingleItem(inRaml: raml, withType: withType)
+        functions.append(contentsOf: try nonResourceFunctionsForMethod(getSingleItem, inResource: singleItemResource))
+        
+        let patchSingleItem = singleItemResource.resourceMethodForPatchSingleItem(inRaml: raml, withType: withType)
+        functions.append(contentsOf: try nonResourceFunctionsForMethod(patchSingleItem, inResource: singleItemResource))
+        
+        return functions
     }
     
     private func generateClientInitFunctions() -> [Settings.Class.Function] {
