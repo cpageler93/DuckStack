@@ -65,7 +65,7 @@ public extension ServerGenerator {
                                                              type: type.swiftType(),
                                                              optional: false)
             propertyAttribute.accessControl = ""
-            propertyAttribute.optional = property.swiftOptional()
+            propertyAttribute.optional = property.swiftIsOptional()
             
             attributes.append(propertyAttribute)
         }
@@ -98,7 +98,7 @@ public extension ServerGenerator {
         
         for property in type.properties ?? [] {
             guard let propertyType = property.type else { continue }
-            if property.swiftOptional() { continue }
+            if property.swiftIsOptional() { continue }
             let param = Settings.Class.FunctionParameter(name: property.name,
                                                          type: propertyType.swiftType())
             params.append(param)

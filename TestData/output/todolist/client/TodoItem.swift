@@ -6,7 +6,7 @@
 //  TodoItem.swift
 //  ToDo List
 //
-//  Created by Christoph Pageler on 31. Jul 2017, 19:43:44
+//  Created by Christoph Pageler on 6. Aug 2017, 13:35:54
 //
 //
 

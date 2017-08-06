@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		592D95091F2FA09C00B69FCA /* ServerGeneratorConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592D95081F2FA09C00B69FCA /* ServerGeneratorConfig.swift */; };
+		59FBB19B1F3726BD00CDC5D1 /* ResourceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FBB19A1F3726BD00CDC5D1 /* ResourceExtensions.swift */; };
+		59FBB19D1F372FC900CDC5D1 /* ServerGeneratorControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FBB19C1F372FC900CDC5D1 /* ServerGeneratorControllers.swift */; };
 		OBJ_173 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_148 /* Case.swift */; };
 		OBJ_174 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_149 /* Context.swift */; };
 		OBJ_175 /* Expectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_150 /* Expectation.swift */; };
@@ -404,6 +406,8 @@
 
 /* Begin PBXFileReference section */
 		592D95081F2FA09C00B69FCA /* ServerGeneratorConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerGeneratorConfig.swift; sourceTree = "<group>"; };
+		59FBB19A1F3726BD00CDC5D1 /* ResourceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceExtensions.swift; sourceTree = "<group>"; };
+		59FBB19C1F372FC900CDC5D1 /* ServerGeneratorControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerGeneratorControllers.swift; sourceTree = "<group>"; };
 		OBJ_10 /* DataTypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypeExtensions.swift; sourceTree = "<group>"; };
 		OBJ_100 /* SettingsGeneral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGeneral.swift; sourceTree = "<group>"; };
 		OBJ_101 /* SettingsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsParser.swift; sourceTree = "<group>"; };
@@ -880,6 +884,7 @@
 				OBJ_13 /* GenerateAPI.swift */,
 				OBJ_14 /* main.swift */,
 				OBJ_15 /* MethodResponseExtensions.swift */,
+				59FBB19A1F3726BD00CDC5D1 /* ResourceExtensions.swift */,
 				OBJ_16 /* PropertyExtensions.swift */,
 				OBJ_17 /* RAMLExtensions.swift */,
 				OBJ_18 /* ResourceGenerator.swift */,
@@ -891,6 +896,7 @@
 				OBJ_23 /* ServerGeneratorModelExtensions.swift */,
 				OBJ_24 /* ServerGeneratorModels.swift */,
 				OBJ_25 /* ServerGeneratorRoutes.swift */,
+				59FBB19C1F372FC900CDC5D1 /* ServerGeneratorControllers.swift */,
 				OBJ_26 /* SettingsExtensions.swift */,
 				OBJ_27 /* StringExtensions.swift */,
 				OBJ_28 /* TypeExtensions.swift */,
@@ -1393,7 +1399,9 @@
 				OBJ_379 /* ServerGeneratorModels.swift in Sources */,
 				OBJ_380 /* ServerGeneratorRoutes.swift in Sources */,
 				OBJ_381 /* SettingsExtensions.swift in Sources */,
+				59FBB19D1F372FC900CDC5D1 /* ServerGeneratorControllers.swift in Sources */,
 				OBJ_382 /* StringExtensions.swift in Sources */,
+				59FBB19B1F3726BD00CDC5D1 /* ResourceExtensions.swift in Sources */,
 				OBJ_383 /* TypeExtensions.swift in Sources */,
 				OBJ_384 /* TypeGenerator.swift in Sources */,
 				OBJ_385 /* URIParameterExtensions.swift in Sources */,

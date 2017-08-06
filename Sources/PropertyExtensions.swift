@@ -10,7 +10,7 @@ import RAML
 
 public extension Property {
     
-    public func swiftOptional() -> Bool {
+    public func swiftIsOptional() -> Bool {
         return !(required ?? true) || isPrimaryKey()
     }
     

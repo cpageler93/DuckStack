@@ -31,7 +31,7 @@ public extension ResourceGenerator {
     }
     
     public func swiftFunctionParamsPreperation(method: ResourceMethod) -> [String] {
-        let parameters = raml.swiftFunctionBodyParametersFor(method: method)
+        let parameters = raml.swiftClientFunctionBodyParametersFor(method: method)
         if parameters.count > 0 {
             var lines: [String] = [
                 "var map: [String: QuackModel] = [:]"
@@ -55,7 +55,7 @@ public extension ResourceGenerator {
     }
     
     public func swiftFunctionParameterForParams(method: ResourceMethod) -> String {
-        let parameters = raml.swiftFunctionBodyParametersFor(method: method)
+        let parameters = raml.swiftClientFunctionBodyParametersFor(method: method)
         if parameters.count > 0 {
             return "params: preparedParams"
         } else {

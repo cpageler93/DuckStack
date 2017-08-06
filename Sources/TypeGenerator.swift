@@ -36,7 +36,7 @@ public class TypeGenerator {
             let newAttribute = Settings.Class.Attribute(ref: ref,
                                                         name: property.name,
                                                         type: type.swiftType(),
-                                                        optional: property.swiftOptional())
+                                                        optional: property.swiftIsOptional())
             attributes.append(newAttribute)
         }
         
@@ -69,7 +69,7 @@ public class TypeGenerator {
             bodyLines.append(contentsOf: [
                 "// init \(property.name)"
             ])
-            if property.swiftOptional() {
+            if property.swiftIsOptional() {
                 bodyLines.append(contentsOf: [
                     "self.\(property.name) = json[\"\(property.name)\"].string"
                     ])

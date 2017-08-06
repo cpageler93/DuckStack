@@ -19,7 +19,8 @@ public extension RAML {
         return "\(title.swiftClassName())Server"
     }
     
-    public func swiftFunctionNameFor(method: ResourceMethod, inResource resource: Resource) -> String {
+    public func swiftClientFunctionNameFor(method: ResourceMethod,
+                                           inResource resource: Resource) -> String {
         var pathComponent = absolutePathForResource(resource)
         pathComponent = pathComponent.replacingOccurrences(of: "/", with: "")
         pathComponent = pathComponent.capitalizingFirstLetter()
@@ -34,14 +35,31 @@ public extension RAML {
         return "\(methodComponent)\(pathComponent)"
     }
     
-    public func swiftFunctionParametersFor(method: ResourceMethod, inResource resource: Resource) -> [Settings.Class.FunctionParameter] {
+    public func vaporFunctionNameFor(method: ResourceMethod,
+                                     inResource resource: Resource) -> String {
+        var pathComponent = absolutePathForResource(resource)
+        pathComponent = pathComponent.replacingOccurrences(of: "/", with: "")
+        pathComponent = pathComponent.capitalizingFirstLetter()
+        
+        pathComponent = pathComponent.replacingParams { paramName -> (String) in
+            return "With\(paramName.capitalizingFirstLetter())"
+        }
+        
+        var methodComponent = method.type.rawValue
+        methodComponent = methodComponent.lowercased()
+        
+        return "\(methodComponent)\(pathComponent)"
+    }
+    
+    public func swiftClientFunctionParametersFor(method: ResourceMethod,
+                                                 inResource resource: Resource) -> [Settings.Class.FunctionParameter] {
         var parameters: [Settings.Class.FunctionParameter] = []
-        parameters.append(contentsOf: swiftFunctionURIParametersFor(resource: resource))
-        parameters.append(contentsOf: swiftFunctionBodyParametersFor(method: method))
+        parameters.append(contentsOf: swiftClientFunctionURIParametersFor(resource: resource))
+        parameters.append(contentsOf: swiftClientFunctionBodyParametersFor(method: method))
         return parameters
     }
     
-    public func swiftFunctionURIParametersFor(resource: Resource) -> [Settings.Class.FunctionParameter] {
+    public func swiftClientFunctionURIParametersFor(resource: Resource) -> [Settings.Class.FunctionParameter] {
         var parameters: [Settings.Class.FunctionParameter] = []
         for uriParameter in resource.uriParameters ?? [] {
             guard let type = uriParameter.type else { continue }
@@ -52,7 +70,7 @@ public extension RAML {
         return parameters
     }
     
-    public func swiftFunctionBodyParametersFor(method: ResourceMethod) -> [Settings.Class.FunctionParameter] {
+    public func swiftClientFunctionBodyParametersFor(method: ResourceMethod) -> [Settings.Class.FunctionParameter] {
         guard let bodyType = method.body?.type else {
             return []
         }

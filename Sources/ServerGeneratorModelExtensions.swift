@@ -85,7 +85,7 @@ public extension ServerGenerator {
             "try self.init("
         ]
         for property in type.properties ?? [] {
-            if property.swiftOptional() { continue }
+            if property.swiftIsOptional() { continue }
             jsonInitFunctionBodyLines.append(contentsOf: [
                 "    \(property.name): json.get(\(type.name).\(property.name)Key)"
             ])

@@ -17,8 +17,8 @@ public extension ResourceGenerator {
                                      responseType: DataType) throws -> Settings.Class.Function {
         
         let bodyLines = swiftFunctionBodyLinesForMethod(method, inResource: resource, forResponseType: responseType)
-        let parameters = raml.swiftFunctionParametersFor(method: method, inResource: resource)
-        let functionName = raml.swiftFunctionNameFor(method: method, inResource: resource)
+        let parameters = raml.swiftClientFunctionParametersFor(method: method, inResource: resource)
+        let functionName = raml.swiftClientFunctionNameFor(method: method, inResource: resource)
         
         let syncFunction = Settings.Class.Function(name: functionName,
                                                    parameters: parameters,

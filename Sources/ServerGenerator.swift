@@ -30,6 +30,8 @@ public class ServerGenerator {
             try generateVaporModelsAt(path: vaporProjectPath + Path("Sources/App/Models"), settings: settings)
             settings.clear()
             try generateVaporConfigsAt(path: vaporProjectPath + Path("Sources/App"), settings: settings)
+            settings.clear()
+            try generateVaporControllersAt(path: vaporProjectPath + Path("Sources/App/Controllers"), settings: settings)
             
             
         } else {
