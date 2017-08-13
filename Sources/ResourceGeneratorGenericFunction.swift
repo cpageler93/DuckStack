@@ -23,7 +23,12 @@ public extension ResourceGenerator {
     }
     
     public func swiftFunctionParameterFor(model withType: DataType) -> String {
-        return "model: \(withType.swiftType()).self"
+        switch withType {
+        case .any:
+            return "// no model"
+        default:
+            return "model: \(withType.swiftType()).self"
+        }
     }
     
     public func swiftFunctionParameterForCompletion() -> String {

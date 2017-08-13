@@ -48,7 +48,7 @@ public extension ServerGenerator {
                     "// \(resource.displayName ?? "No Description")",
                     "let \(groupName) = \(concreteParentGroupName)grouped(\"\(serverPathName)\")",
                     "let \(controllerName) = \(controllerClassName)()"
-                    ])
+                ])
                 let childRoutes = try getVaporRoutesBodyLines(forResource: resource,
                                                               withParentGroupName: groupName,
                                                               parentControllerName: controllerName)
@@ -69,23 +69,30 @@ public extension ServerGenerator {
     private func getVaporRoutesBodyLines(forResource resource: Resource,
                                          withParentGroupName parentGroupName: String? = nil,
                                          parentControllerName: String? = nil) throws -> [String] {
-        let concreteParentGroupName = parentGroupName ?? "<undefined?>"
-        let concreteParentControllerName = parentControllerName ?? "<undefined?>"
-        
-        let pathParams = resource.vaporRoutePathParams()
-        let absolutePath = raml.absolutePathForResource(resource)
-        
         var lines: [String] = []
-        for method in resource.methods ?? [] {
-            let methodName = raml.vaporFunctionNameFor(method: method, inResource: resource)
+        
+        if let resourceOfType = resource.resourceOfType() {
             lines.append(contentsOf: [
-                "",
-                "// \(method.type.rawValue.uppercased()) \(absolutePath)",
-                "\(concreteParentGroupName).\(method.type.rawValue)(\(pathParams)) { req in ",
-                "    return try \(concreteParentControllerName).\(methodName)(req)",
-                "}",
-                ""
+                "try resource(\"/\", \(resourceOfType)sController.self)"
             ])
+        } else {
+            let concreteParentGroupName = parentGroupName ?? "<undefined?>"
+            let concreteParentControllerName = parentControllerName ?? "<undefined?>"
+            
+            let pathParams = resource.vaporRoutePathParams()
+            let absolutePath = raml.absolutePathForResource(resource)
+            
+            for method in resource.methods ?? [] {
+                let methodName = raml.vaporFunctionNameFor(method: method, inResource: resource)
+                lines.append(contentsOf: [
+                    "",
+                    "// \(method.type.rawValue.uppercased()) \(absolutePath)",
+                    "\(concreteParentGroupName).\(method.type.rawValue)(\(pathParams)) { req in ",
+                    "    return try \(concreteParentControllerName).\(methodName)(req)",
+                    "}",
+                    ""
+                    ])
+            }
         }
         
         let subResourceLines = try getVaporRoutesBodyLinesFor(someoneWhoHasResources: resource,

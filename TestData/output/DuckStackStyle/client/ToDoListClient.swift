@@ -6,7 +6,7 @@
 //  ToDoListClient.swift
 //  ToDo List
 //
-//  Created by Christoph Pageler on 6. Aug 2017, 20:33:45
+//  Created by Christoph Pageler on 11. Aug 2017, 18:32:52
 //
 //
 
@@ -116,7 +116,6 @@ public class ToDoListClient: QuackClient {
 
         return respond(method: .delete,
                        path: "/todoItems/\(id)",
-                       model: Any.self)
 
     }
 
@@ -124,7 +123,6 @@ public class ToDoListClient: QuackClient {
 
         return respondAsync(method: .delete,
                             path: "/todoItems/\(id)",
-                            model: Any.self,
                             completion: completion)
 
     }
